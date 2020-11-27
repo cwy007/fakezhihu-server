@@ -52,7 +52,34 @@ const createUser = async (ctx, next) => {
   }
 }
 
+const loginUser = async (ctx, next) => {
+  const { name, pwd } = ctx.request.body;
+  const where = { name, pwd };
+  const attributes = ['name', 'id', 'email'];
+  try {
+    await User.findOne({
+      where, attributes
+    }).then((res) => {
+      if (res === null) {
+        // 206 Partial Content 服务器已经完成了部分用户的GET请求
+        ctx.response.status = 206;
+        ctx.response.body = {
+          msg: '用户名或者密码不对，请修改后重新登录'
+        };
+        return ;
+      } else {
+        utils.setCookies(ctx, res.dataValues);
+        ctx.response.status = 200;
+        ctx.response.body = res;
+      }
+    })
+  } catch (error) {
+    utils.catchError(error);
+  }
+}
+
 module.exports = {
   "GET /users/list": list,
-  "POST /users/create": createUser
+  "POST /users/create": createUser,
+  "POST /users/login": loginUser
 }
