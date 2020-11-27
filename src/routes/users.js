@@ -1,6 +1,7 @@
 const model = require('../models');
 const { users: User } = model;
 const _ = require('lodash');
+const utils = require('../lib/utils');
 
 const catchError = (ctx, err) => {
   console.log(err);
