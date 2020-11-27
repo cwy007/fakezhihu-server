@@ -44,4 +44,11 @@ app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 });
 
+console.log('==============================================================');
+console.log(' Fakezhihu-server');
+console.log('--------------------------------------------------------------');
+console.log(' Start prot : 3000')
+console.log(` Up time: ${new Date().toString()}`);
+console.log('==============================================================');
+
 module.exports = app
