@@ -3,18 +3,13 @@ const { users: User } = model;
 const _ = require('lodash');
 const utils = require('../lib/utils');
 
-const catchError = (ctx, err) => {
-  console.log(err);
-  ctx.resError = err;
-}
-
 const list = async (ctx, next) => {
   try {
     const users = await User.findAll();
     ctx.response.status = 200;
     ctx.response.body = users;
   } catch (error) {
-    catchError(ctx, error);
+    utils.catchError(ctx, error);
   }
 }
 
@@ -48,7 +43,7 @@ const createUser = async (ctx, next) => {
       ctx.response.body = res;
     })
   } catch (error) {
-    catchError(ctx, error);
+    utils.catchError(ctx, error);
   }
 }
 
@@ -78,8 +73,40 @@ const loginUser = async (ctx, next) => {
   }
 }
 
+const checkLogin = async (ctx, next) => {
+  try {
+    if (ctx.cookies.get('id')) {
+      ctx.response.status = 200;
+      ctx.response.body = {
+        name: decodeURIComponent(ctx.cookies.get('name'))
+      };
+    } else {
+      // 202——接受和处理、但处理未完成
+      ctx.response.status = 202;
+    }
+  } catch (error) {
+    utils.catchError(ctx, error);
+  }
+}
+
+const logout = async (ctx, next) => {
+  const cookies = {
+    id: ctx.cookies.get('id'),
+    name: ctx.cookies.get('name'),
+    email: ctx.cookies.get('email')
+  }
+  try {
+    utils.destroyCookies(ctx, cookies);
+    ctx.response.status = 200;
+  } catch (error) {
+    utils.catchError(ctx, error);
+  }
+}
+
 module.exports = {
   "GET /users/list": list,
   "POST /users/create": createUser,
-  "POST /users/login": loginUser
+  "POST /users/login": loginUser,
+  "GET /users/checkLogin": checkLogin,
+  "POST /users/logout": logout
 }

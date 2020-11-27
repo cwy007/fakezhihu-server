@@ -15,7 +15,7 @@ exports.setCookies = (ctx, info) => {
   });
 }
 
-exports.destroyCooiies = (ctx, info) => {
+exports.destroyCookies = (ctx, info) => {
   if (!_.isObject(info)) {
     return false;
   }
