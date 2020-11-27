@@ -1,12 +1,21 @@
-const users = (ctx, next) => {
-  ctx.body = 'this is a users response!'
+const model = require('../models');
+const { users: User } = model;
+
+const catchError = (ctx, err) => {
+  console.log(err);
+  ctx.resError = err;
 }
 
-const usersBar = (ctx, next) => {
-  ctx.body = 'this is a users/bar response'
+const list = async (ctx, next) => {
+  try {
+    const users = await User.findAll();
+    ctx.response.status = 200;
+    ctx.response.body = users;
+  } catch (error) {
+    catchError(ctx, error);
+  }
 }
 
 module.exports = {
-  "GET /users": users,
-  "GET /users/bar": usersBar
+  "GET /users/list": list
 }

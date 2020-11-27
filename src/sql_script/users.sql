@@ -1,9 +1,0 @@
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT "用户ID",
-  `name` char(11) NOT NULL COMMENT "名称",
-  `age` int(11) NOT NULL COMMENT "年龄",
-  `gender` tinyint(1) NOT NULL COMMENT "性别",
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "用户表";
