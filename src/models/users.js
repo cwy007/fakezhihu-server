@@ -6,16 +6,13 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
     name: {
-      type: DataTypes.CHAR,
-      allowNull: no
+      type: DataTypes.CHAR
     },
     age: {
-      type: DataTypes.INT,
-      allowNull: no
+      type: DataTypes.INTEGER
     },
     gender: {
-      type: DataTypes.TINYINT,
-      allowNull: no
+      type: DataTypes.TINYINT
     },
     createdAt: {
       type: DataTypes.DATE
