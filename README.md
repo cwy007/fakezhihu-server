@@ -1,6 +1,6 @@
 # fakezhihu-server
 
-用于提供后段api接口
+用于提供后端api接口
 
 ## 对应的前端项目
 
