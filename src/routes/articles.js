@@ -30,7 +30,6 @@ const createArticles = async (ctx, next) => {
         targetId: res.dataValues.id, // 目标id
         targetType: 0  // 目标类型
       }).then((res) => {
-        console.log('创建成功')
         ctx.response.body = {
           status: 201,
           msg: '创建成功'
