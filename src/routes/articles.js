@@ -1,5 +1,5 @@
 const model = require('../models');
-const { articles: Article, status: Status } = model;
+const { articles: Article, statuses: Status } = model;
 const _ = require('lodash');
 const utils = require('../lib/utils');
 const { userAttributes, articleAttributes } = require('../config/default');
@@ -9,7 +9,7 @@ const articleInclude = [{
   attributes: userAttributes,
   as: 'author'
 }, {
-  model: model.status,
+  model: model.statuses,
   as: 'status',
   where: {
     targetType: 0 // 文章0、问题1、答案2
@@ -25,11 +25,12 @@ const createArticles = async (ctx, next) => {
       return Status.create({
         voteUp: '[]', // 支持
         voteDown: '[]', // 反对
-        favotire: '[]', // 收藏
-        thanks: '[]', // 感谢
+        favorite: '[]', // 收藏
+        thanks: "[]", // 感谢
         targetId: res.dataValues.id, // 目标id
         targetType: 0  // 目标类型
       }).then((res) => {
+        console.log('创建成功')
         ctx.response.body = {
           status: 201,
           msg: '创建成功'
@@ -37,6 +38,8 @@ const createArticles = async (ctx, next) => {
       });
     });
   } catch (error) {
+    console.log('出错了')
+
     utils.catchError(error);
   }
 }

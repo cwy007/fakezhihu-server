@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Status = sequelize.define('status', {
+  const Status = sequelize.define('statuses', {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT
     },
     favorite: {
+      type: DataTypes.TEXT
+    },
+    thanks: {
       type: DataTypes.TEXT
     },
     targetId: {

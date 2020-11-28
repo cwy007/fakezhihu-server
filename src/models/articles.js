@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Article.associate = (models) => {
     Article.belongsTo(models.users, { foreignKey: 'creatorId', as: 'author' });
-    Article.hasOne(models.status, { foreignKey: 'targetId', as: 'status' })
+    Article.hasOne(models.statuses, { foreignKey: 'targetId', as: 'status' })
   }
   return Article;
 }

@@ -97,9 +97,9 @@ CREATE TABLE `questions` (
 # Dump of table status
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `status`;
+DROP TABLE IF EXISTS `statuses`;
 
-CREATE TABLE `status` (
+CREATE TABLE `statuses` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `voteUp` text COLLATE utf8_unicode_ci NOT NULL,
   `voteDown` text COLLATE utf8_unicode_ci NOT NULL,
