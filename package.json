@@ -9,8 +9,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "crypto-js": "^4.0.0",
     "debug": "^4.1.1",
     "koa": "^2.7.0",
+    "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.2.1",
     "koa-convert": "^1.2.0",
     "koa-json": "^2.0.2",

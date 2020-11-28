@@ -10,4 +10,5 @@
 
 * [encodeURI()和encodeURIComponent() 区别](https://blog.csdn.net/qq_34629352/article/details/78959707)
 * [终于讲清楚了nodejs中exports和module.exports的区别](https://www.jianshu.com/p/43b151089d29)
-[* http状态码204/206/200理解](http://www.mamicode.com/info-detail-1825350.html)
+* [http状态码204/206/200理解](http://www.mamicode.com/info-detail-1825350.html)
+* [HTTP状态码 201 304 404 500等代表的含义](https://blog.csdn.net/sinat_36067127/article/details/74841769)
