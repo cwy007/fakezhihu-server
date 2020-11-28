@@ -38,8 +38,6 @@ const createArticles = async (ctx, next) => {
       });
     });
   } catch (error) {
-    console.log('出错了')
-
     utils.catchError(error);
   }
 }
@@ -75,7 +73,73 @@ const deleteArticles = async (ctx, next) => {
   }
 }
 
+const getArticle = async (ctx, next) => {
+  const { articleId } = ctx.query;
+  const where = { id: articleId };
+  try {
+    await Article.findOne({
+      where,
+      include: articleInclude,
+      attributes: articleAttributes
+    }).then((res) => {
+      ctx.response.body = {
+        status: 200,
+        content: res
+      }
+    })
+  } catch (error) {
+    utils.catchError(error);
+  }
+}
+
+const getArticleList = async (ctx, next) => {
+  try {
+    const order = [['id', 'DESC']];
+    const limit = 10;
+    const articleList = await Article.findAll({
+      order,
+      limit,
+      include: articleInclude,
+      attributes: articleAttributes
+    });
+    ctx.response.body = {
+      status: 200,
+      list: articleList
+    }
+  } catch (error) {
+    utils.catchError(error);
+  }
+}
+
+const updateArticles = async (ctx, next) => {
+  const {articleId, content, excerpt, title, imgUrl, userId } = ctx.request.body;
+  const where = { id: articleId, creatorId: userId };
+  try {
+    const articleExist = await Article.findOne({where});
+    if (!articleExist) {
+      ctx.response.body = {
+        status: 2001,
+        msg: '文章不存在或者没有权限'
+      };
+    } else {
+      await Article.update(
+        { content, excerpt, title, cover: imgUrl }, { where }
+      ).then((res) => {
+        ctx.response.body = {
+          status: 201,
+          msg: '文章修改成功'
+        };
+      });
+    }
+  } catch (error) {
+    utils.catchError(error);
+  }
+}
+
 module.exports = {
   "POST /articles": createArticles,
-  "DELETE /articles": deleteArticles
+  "DELETE /articles": deleteArticles,
+  "GET /articles": getArticle,
+  "GET /articles/list": getArticleList,
+  "PUT /articles": updateArticles
 }
