@@ -24,6 +24,7 @@ const updateQuestion = async (ctx, next) => {
   const where = { id: questionId, creatorId: userId };
   try {
     const questionExist = await Question.findOne({where});
+    console.log('问题', questionExist)
     if (!questionExist) {
       ctx.response.body = {
         status: 201,

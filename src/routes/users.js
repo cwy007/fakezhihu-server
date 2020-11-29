@@ -2,6 +2,7 @@ const model = require('../models');
 const { users: User } = model;
 const _ = require('lodash');
 const utils = require('../lib/utils');
+const { userAttributes } = require('../config/default');
 
 const list = async (ctx, next) => {
   try {
@@ -103,10 +104,24 @@ const logout = async (ctx, next) => {
   }
 }
 
+const getUserInfo = async (ctx, next) => {
+  const { userId } = ctx.request.query;
+  await User.findOne({
+    where: { id: userId },
+    attributes: userAttributes
+  }).then((res) => {
+    ctx.response.body = {
+      status: 200,
+      content: res
+    }
+  })
+}
+
 module.exports = {
   "GET /users/list": list,
   "POST /users/create": createUser,
   "POST /users/login": loginUser,
   "GET /users/checkLogin": checkLogin,
-  "POST /users/logout": logout
+  "POST /users/logout": logout,
+  "GET /users": getUserInfo
 }
