@@ -12,7 +12,7 @@ const config = {
   "userAttributes": ['name', 'email', 'avatarUrl', 'headline'],
   "commentAttributes": ['creatorId', 'content', 'targetId', 'createdAt'],
   "articleAttributes": ['id', 'title', 'excerpt', 'content', 'cover', 'creatorId', 'type', 'updatedAt'],
-  "questionAttributes": ['id', 'title', 'excerpt', 'discription', 'updatedAt'],
+  "questionAttributes": ['id', 'title', 'excerpt', 'description', 'updatedAt'],
   "answerAttributes": ['id', 'content', 'excerpt', 'creatorid', 'type', 'targetId', 'updatedAt']
 }
 
