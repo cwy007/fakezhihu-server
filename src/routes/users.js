@@ -70,7 +70,7 @@ const loginUser = async (ctx, next) => {
       }
     })
   } catch (error) {
-    utils.catchError(error);
+    utils.catchError(ctx, error);
   }
 }
 

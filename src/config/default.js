@@ -13,7 +13,7 @@ const config = {
   "commentAttributes": ['creatorId', 'content', 'targetId', 'createdAt'],
   "articleAttributes": ['id', 'title', 'excerpt', 'content', 'cover', 'creatorId', 'type', 'updatedAt'],
   "questionAttributes": ['id', 'title', 'excerpt', 'description', 'updatedAt'],
-  "answerAttributes": ['id', 'content', 'excerpt', 'creatorid', 'type', 'targetId', 'updatedAt']
+  "answerAttributes": ['id', 'content', 'excerpt', 'creatorId', 'type', 'targetId', 'updatedAt']
 }
 
 module.exports = config;

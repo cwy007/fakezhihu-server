@@ -25,7 +25,7 @@ const createAnswer = async(ctx, next) => {
       });
     });
   } catch (error) {
-    utils.catchError(error);
+    utils.catchError(ctx, error);
   }
 }
 
@@ -52,7 +52,7 @@ const deleteAnswers = async (ctx, next) => {
       }
     }
   } catch (error) {
-    utils.catchError(error);
+    utils.catchError(ctx, error);
   }
 }
 
@@ -75,7 +75,7 @@ const updateAnswer = async (ctx, next) => {
       };
     }
   } catch (error) {
-    utils.catchError(error);
+    utils.catchError(ctx, error);
   }
 }
 

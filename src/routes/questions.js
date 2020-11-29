@@ -15,7 +15,7 @@ const createQuestion = async (ctx, next) => {
       }
     });
   } catch (error) {
-    utils.catchError(error);
+    utils.catchError(ctx, error);
   }
 }
 
@@ -24,7 +24,6 @@ const updateQuestion = async (ctx, next) => {
   const where = { id: questionId, creatorId: userId };
   try {
     const questionExist = await Question.findOne({where});
-    console.log('问题', questionExist)
     if (!questionExist) {
       ctx.response.body = {
         status: 201,
@@ -41,7 +40,7 @@ const updateQuestion = async (ctx, next) => {
       });
     }
   } catch (error) {
-    utils.catchError(error);
+    utils.catchError(ctx, error);
   }
 }
 
@@ -79,14 +78,12 @@ const getQuestionMethod1 = async (ctx, next) => {
       attributes: answerAttributes
     })
     questionContent.dataValues.answers = answerList.rows;
-
     ctx.response.body = {
       status: 200,
       content: questionContent
     }
   } catch (error) {
-    utils.catchError(error);
-    ctx.resError = error;
+    utils.catchError(ctx, error);
   }
 }
 
@@ -126,7 +123,7 @@ const getQuestionMethod2 = async (ctx, next) => {
       content: questionContent
     }
   } catch (error) {
-    utils.catchError(error);
+    utils.catchError(ctx, error);
   }
 }
 

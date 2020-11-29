@@ -37,7 +37,7 @@ const createArticles = async (ctx, next) => {
       });
     });
   } catch (error) {
-    utils.catchError(error);
+    utils.catchError(ctx, error);
   }
 }
 
@@ -68,7 +68,7 @@ const deleteArticles = async (ctx, next) => {
       }
     }
   } catch (error) {
-    utils.catchError(error);
+    utils.catchError(ctx, error);
   }
 }
 
@@ -87,7 +87,7 @@ const getArticle = async (ctx, next) => {
       }
     })
   } catch (error) {
-    utils.catchError(error);
+    utils.catchError(ctx, error);
   }
 }
 
@@ -106,7 +106,7 @@ const getArticleList = async (ctx, next) => {
       list: articleList
     }
   } catch (error) {
-    utils.catchError(error);
+    utils.catchError(ctx, error);
   }
 }
 
@@ -131,7 +131,7 @@ const updateArticles = async (ctx, next) => {
       });
     }
   } catch (error) {
-    utils.catchError(error);
+    utils.catchError(ctx, error);
   }
 }
 
