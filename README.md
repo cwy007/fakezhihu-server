@@ -21,10 +21,15 @@
 ```js
 question 没有 status
 // 文章0、问题1、答案2
+
+statuses 表
 targetType: {
   0: 'article',
   1: 'question',
   2: 'answer',
-  3: 'status'
+  3: 'comment'
 }
+
+comments 表
+// question:1, answer: 2, comment:3
 ```

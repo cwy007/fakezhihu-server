@@ -16,14 +16,16 @@ const commentInclude = [{
   // 这里的as要与model中指定关联的as保持一直
   as: 'subComments', // 这里要写字符串；
   required: false,
-  where: { targetType: 3 }
+  where: { targetType: 3 } // question:1, answer: 2, comment:3
 }];
 
 const getComments = async (ctx, next) => {
+  const order = [['id', 'DESC']];
   const { targetId, targetType } = ctx.query;
   const where = { targetId, targetType };
   try {
     await Comment.findAll({
+      order,
       where,
       include: commentInclude,
       attributes: commentAttributes
