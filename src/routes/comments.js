@@ -13,7 +13,8 @@ const commentInclude = [{
   where: { targetType: 3} // article:0, question:1, answer:2, status:3
 }, {
   model: model.comments,
-  as: 'comments', // 这里要写字符串
+  // 这里的as要与model中指定关联的as保持一直
+  as: 'subComments', // 这里要写字符串；
   required: false,
   where: { targetType: 3 }
 }];

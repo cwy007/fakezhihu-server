@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   Comment.associate = (models) => {
     Comment.belongsTo(models.users, { foreignKey: 'creatorId', as: 'author' });
-    Comment.hasMany(models.comments, { foreignKey: 'targetId', as: 'comments' });
+    // 这里的as要与查询时指定的as保持一直
+    Comment.hasMany(models.comments, { foreignKey: 'targetId', as: 'subComments' });
     Comment.hasOne(models.statuses, { foreignKey: 'targetId', as: 'status' });
   }
   return Comment; // 不要忘了return语句

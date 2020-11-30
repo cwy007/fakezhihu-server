@@ -10,7 +10,7 @@ const config = {
     }
   },
   "userAttributes": ['name', 'email', 'avatarUrl', 'headline'],
-  "commentAttributes": ['creatorId', 'content', 'targetId', 'createdAt'],
+  "commentAttributes": ['creatorId', 'content', 'targetId', 'createdAt', 'type', 'id'],
   "articleAttributes": ['id', 'title', 'excerpt', 'content', 'cover', 'creatorId', 'type', 'updatedAt'],
   "questionAttributes": ['id', 'title', 'excerpt', 'description', 'updatedAt'],
   "answerAttributes": ['id', 'content', 'excerpt', 'creatorId', 'type', 'targetId', 'updatedAt']
