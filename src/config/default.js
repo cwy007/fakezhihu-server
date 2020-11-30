@@ -9,7 +9,7 @@ const config = {
       "port": 3306
     }
   },
-  "userAttributes": ['name', 'email', 'avatarUrl', 'headline'],
+  "userAttributes": ['id', 'name', 'email', 'avatarUrl', 'headline'],
   "commentAttributes": ['creatorId', 'content', 'targetId', 'createdAt', 'type', 'id'],
   "articleAttributes": ['id', 'title', 'excerpt', 'content', 'cover', 'creatorId', 'type', 'updatedAt'],
   "questionAttributes": ['id', 'title', 'excerpt', 'description', 'updatedAt'],
