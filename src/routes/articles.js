@@ -2,7 +2,7 @@ const model = require('../models');
 const { articles: Article, statuses: Status } = model;
 const _ = require('lodash');
 const utils = require('../lib/utils');
-const { userAttributes, articleAttributes } = require('../config/default');
+const { userAttributes, articleAttributes, commentAttributes } = require('../config/default');
 
 const articleInclude = [{
   model: model.users,
@@ -11,9 +11,13 @@ const articleInclude = [{
 }, {
   model: model.statuses,
   as: 'status',
-  where: {
-    targetType: 0 // 文章0、问题1、答案2
-  }
+  where: { targetType: 0 } // 文章0、问题1、答案2
+}, {
+  model: model.comments,
+  attributes: commentAttributes,
+  as: 'comments',
+  required: false, // 非必要内容，这样没有评论的文章也可以查出来
+  where: { targetType: 0 }
 }];
 
 const createArticles = async (ctx, next) => {

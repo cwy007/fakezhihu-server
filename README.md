@@ -16,7 +16,7 @@
 *[Node.js REPL with lodash](https://github.com/borisdiakur/n_#readme)
 *[DatabaseError [SequelizeDatabaseError]: Not unique table/alias: 'comments'](https://stackoverflow.com/questions/53491063/sequelize-not-unique-table-alias)
 
-## statuses 表
+## targetType 字段
 
 ```js
 question 没有 status
@@ -31,5 +31,6 @@ targetType: {
 }
 
 comments 表
-// question:1, answer: 2, comment:3
+targetType 字段
+// article:0, question:1, answer: 2, comment:3
 ```
