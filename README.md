@@ -14,3 +14,16 @@
 * [HTTP状态码 201 304 404 500等代表的含义](https://blog.csdn.net/sinat_36067127/article/details/74841769)
 * [注意: 在 REPL 中不要声明 特殊变量 "_"，安装 n_ 来代替。](http://lodash.think2011.net/getting-started)
 *[Node.js REPL with lodash](https://github.com/borisdiakur/n_#readme)
+
+## statuses 表
+
+```js
+question 没有 status
+// 文章0、问题1、答案2
+targetType: {
+  0: 'article',
+  1: 'question',
+  2: 'answer',
+  3: 'status'
+}
+```
