@@ -77,10 +77,17 @@ const loginUser = async (ctx, next) => {
 const checkLogin = async (ctx, next) => {
   try {
     if (ctx.cookies.get('id')) {
-      ctx.response.status = 200;
-      ctx.response.body = {
-        name: decodeURIComponent(ctx.cookies.get('name'))
-      };
+      await User.findOne({
+        where: { id: ctx.cookies.get('id') },
+        attributes: userAttributes
+      }).then((res) => {
+        console.log(res)
+        ctx.response.body = {
+          status: 200,
+          name: res.name,
+          avatarUrl: res.avatarUrl
+        };
+      })
     } else {
       // 202——接受和处理、但处理未完成
       ctx.response.status = 202;
@@ -130,7 +137,7 @@ const updateUserInfo = async (ctx, next) => {
     ).then((res) => {
       ctx.response.body = {
         status: 201,
-        content: res
+        content: res // res 为 [0] 是表示失败
       };
     })
   } catch (error) {
