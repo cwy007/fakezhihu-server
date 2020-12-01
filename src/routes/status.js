@@ -22,11 +22,11 @@ const updateStatus = async (ctx, next) => {
         ? JSON.stringify(_.pull(JSON.parse(changedOne[colName]), value))
         : JSON.stringify([...JSON.parse(changedOne[colName]), value]);
     }
-      changedOne.save();
-      ctx.response.body = {
-        status: 201,
-        content: changedOne
-      }
+    changedOne.save();
+    ctx.response.body = {
+      status: 201,
+      content: changedOne
+    }
   } catch (error) {
     utils.catchError(ctx, error);
   }

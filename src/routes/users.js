@@ -106,15 +106,36 @@ const logout = async (ctx, next) => {
 
 const getUserInfo = async (ctx, next) => {
   const { userId } = ctx.request.query;
-  await User.findOne({
-    where: { id: userId },
-    attributes: userAttributes
-  }).then((res) => {
-    ctx.response.body = {
-      status: 200,
-      content: res
-    }
-  })
+  try {
+    await User.findOne({
+      where: { id: userId },
+      attributes: userAttributes
+    }).then((res) => {
+      ctx.response.body = {
+        status: 200,
+        content: res
+      };
+    })
+  } catch (error) {
+    utils.catchError(ctx, error);
+  }
+}
+
+const updateUserInfo = async (ctx, next) => {
+  const { id, colName, value } = ctx.request.body;
+  try {
+    await User.update(
+      {[colName]: value},
+      { where: {id}}
+    ).then((res) => {
+      ctx.response.body = {
+        status: 201,
+        content: res
+      };
+    })
+  } catch (error) {
+    utils.catchError(ctx, error);
+  }
 }
 
 module.exports = {
@@ -123,5 +144,6 @@ module.exports = {
   "POST /users/login": loginUser,
   "GET /users/checkLogin": checkLogin,
   "POST /users/logout": logout,
-  "GET /users": getUserInfo
+  "GET /users": getUserInfo,
+  "PUT /users": updateUserInfo
 }
