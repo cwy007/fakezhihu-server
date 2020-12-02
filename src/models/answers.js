@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     Answer.belongsTo(models.users, { foreignKey: 'creatorId', as: 'author'});
     Answer.belongsTo(models.questions, { foreignKey: 'targetId', as: 'question' });
     Answer.hasOne(models.statuses, { foreignKey: 'targetId', as: 'status' });
-    Answer.hasMany(models.comments, { foreignKey: 'targetId', as: 'comment' });
+    Answer.hasMany(models.comments, { foreignKey: 'targetId', as: 'comments' });
   }
   return Answer;
 }

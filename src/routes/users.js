@@ -81,7 +81,6 @@ const checkLogin = async (ctx, next) => {
         where: { id: ctx.cookies.get('id') },
         attributes: userAttributes
       }).then((res) => {
-        console.log(res)
         ctx.response.body = {
           status: 200,
           name: res.name,

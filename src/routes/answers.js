@@ -2,7 +2,7 @@ const model = require('../models');
 const { answers: Answer, statuses: Status } = model;
 const { answerAttributes, commentAttributes, questionAttributes, userAttributes } = require('../config/default');
 const _ = require('lodash');
-const { utils } = require('../lib/utils');
+const utils = require('../lib/utils');
 
 const createAnswer = async(ctx, next) => {
   const { creatorId, targetId, content, excerpt } = ctx.request.body;
@@ -57,7 +57,7 @@ const deleteAnswers = async (ctx, next) => {
 }
 
 const updateAnswer = async (ctx, next) => {
-  const { creatorid, answerId, content, excerpt } = ctx.request.body;
+  const { creatorId, answerId, content, excerpt } = ctx.request.body;
   const where = { creatorId, id: answerId };
   try {
     const answerExist = await Answer.findOne({where});
@@ -84,12 +84,12 @@ const creatorAnswer = async (ctx, next) => {
   const where = { creatorId };
   const include = [{
     model: model.comments,
-    as: comments,
+    as: 'comments',
     attributes: commentAttributes,
     required: false,
     where: { targetType: 2 }
   }, {
-    model: model.status,
+    model: model.statuses, // model 这个字段要使用复数，表示对应的表名
     as: 'status',
     where: { targetType: 2 }
   }, {
@@ -102,17 +102,20 @@ const creatorAnswer = async (ctx, next) => {
     attributes: userAttributes
   }];
   try {
+    console.log('开始查询 answers')
     await Answer.findAll({
       where, include,
       attributes: answerAttributes,
       order: [['updatedAt', 'DESC']]
     }).then((res) => {
+      console.log('成功', res)
       ctx.response.body = {
         status: 200,
         list: res
       }
     })
   } catch (error) {
+    console.log('出错了')
     utils.catchError(ctx, error);
   }
 }
