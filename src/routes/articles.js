@@ -33,10 +33,11 @@ const createArticles = async (ctx, next) => {
         thanks: "[]", // 感谢
         targetId: res.dataValues.id, // 目标id
         targetType: 0  // 目标类型
-      }).then((res) => {
+      }).then((response) => {
         ctx.response.body = {
           status: 201,
-          msg: '创建成功'
+          msg: '创建成功',
+          id: res.id
         }
       });
     });
@@ -130,7 +131,8 @@ const updateArticles = async (ctx, next) => {
       ).then((res) => {
         ctx.response.body = {
           status: 201,
-          msg: '文章修改成功'
+          msg: '文章修改成功',
+          id: res
         };
       });
     }

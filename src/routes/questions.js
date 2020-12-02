@@ -1,7 +1,7 @@
 const model = require('../models');
 const { questions: Question, answers: Answer } = model;
 const utils = require('../lib/utils');
-const { userAttributes, questionAttributes, answerAttributes } = require('../config/default');
+const { userAttributes, questionAttributes, answerAttributes, commentAttributes } = require('../config/default');
 
 const createQuestion = async (ctx, next) => {
   const { description, excerpt, title, userId } = ctx.request.body;
@@ -127,8 +127,44 @@ const getQuestionMethod2 = async (ctx, next) => {
   }
 }
 
+const creatorQuestions = async (ctx, next) => {
+  const { creatorId } = ctx.query;
+  const where = { creatorId };
+  const include = [{
+    model: model.users,
+    as: 'author',
+    attributes: userAttributes
+  }, {
+    model: model.comments,
+    as: 'comments',
+    required: false,
+    attributes: commentAttributes,
+    where: { targetId: 1 }
+  }, {
+    model: model.answers,
+    attributes: answerAttributes,
+    required: false,
+    as: 'answers'
+  }];
+  try {
+    await Question.findAll({
+      where, include, attributes: questionAttributes, order: [
+        ['updatedAt', 'DESC']
+      ]
+    }).then((res) => {
+      ctx.response.body = {
+        status: 200,
+        list: res
+      }
+    })
+  } catch (error) {
+    utils.catchError(ctx, error);
+  }
+}
+
 module.exports = {
   'POST /questions': createQuestion,
   'PUT /questions': updateQuestion,
-  'GET /questions': getQuestionMethod1
+  'GET /questions': getQuestionMethod1,
+  'GET /questions/creator': creatorQuestions
 }
