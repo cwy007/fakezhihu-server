@@ -1,6 +1,6 @@
 const model = require('../models');
 const { answers: Answer, statuses: Status } = model;
-const { answerAttributes } = require('../config/default');
+const { answerAttributes, commentAttributes, questionAttributes, userAttributes } = require('../config/default');
 const _ = require('lodash');
 const { utils } = require('../lib/utils');
 
@@ -79,8 +79,47 @@ const updateAnswer = async (ctx, next) => {
   }
 }
 
+const creatorAnswer = async (ctx, next) => {
+  const { creatorId } = ctx.query;
+  const where = { creatorId };
+  const include = [{
+    model: model.comments,
+    as: comments,
+    attributes: commentAttributes,
+    required: false,
+    where: { targetType: 2 }
+  }, {
+    model: model.status,
+    as: 'status',
+    where: { targetType: 2 }
+  }, {
+    model: model.questions,
+    as: 'question',
+    attributes: questionAttributes
+  }, {
+    model: model.users,
+    as: 'author',
+    attributes: userAttributes
+  }];
+  try {
+    await Answer.findAll({
+      where, include,
+      attributes: answerAttributes,
+      order: [['updatedAt', 'DESC']]
+    }).then((res) => {
+      ctx.response.body = {
+        status: 200,
+        list: res
+      }
+    })
+  } catch (error) {
+    utils.catchError(ctx, error);
+  }
+}
+
 module.exports = {
   'POST /answers': createAnswer,
   'DELETE /answers': deleteAnswers,
-  'PUT /answers': updateAnswer
+  'PUT /answers': updateAnswer,
+  'GET /answers/creator': creatorAnswer
 }
