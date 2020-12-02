@@ -139,10 +139,31 @@ const updateArticles = async (ctx, next) => {
   }
 }
 
+const creatorArticles = async (ctx, next) => {
+  const { creatorId } = ctx.query;
+  const where = { creatorId };
+  try {
+    await Article.findAll({
+      where,
+      include: articleInclude,
+      attributes: articleAttributes,
+      order: [['updatedAt', 'DESC']]
+    }).then((res) => {
+      ctx.response.body = {
+        status: 200,
+        list: res
+      }
+    })
+  } catch (error) {
+    utils.catchError(ctx, error);
+  }
+}
+
 module.exports = {
   "POST /articles": createArticles,
   "DELETE /articles": deleteArticles,
   "GET /articles": getArticle,
   "GET /articles/list": getArticleList,
-  "PUT /articles": updateArticles
+  "PUT /articles": updateArticles,
+  "GET /articles/creator": creatorArticles
 }
